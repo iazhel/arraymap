@@ -1,26 +1,21 @@
 package arraymap
 
 // Package empliments any function with array map types.
+
 // the array map type example:
 // var theArrayMap []map[type1]type2
-
-// It have few functions. They find index of array element,
-// where contains the map with searched key.
-
-//  i:= arraymap.Index[&theArrayMap, theKey]
-//
-// IndexS() and IndexI() work only with string and int keys.
-// They work fastly than Index().
-// But Index() uses all key types.
-// func Indexes() return int slice of all founded alements with
-// searched key.
+//  --------------------------------
+//  index:= arraymap.Index(&theArrayMap, theKey)
+//  tneValue := theArrayMap[index][theKey]
 
 import (
 	"fmt"
 	"reflect"
 )
 
-// Finds first array index by any type key.
+// Index finds first index of array element,
+// where is contained the map with searched key.
+// Key may be any type.
 func Index(aMap interface{}, k interface{}) int {
 	if checkTypes := VerifyTypes(aMap, k); checkTypes != "OK" {
 		return -1
@@ -28,13 +23,15 @@ func Index(aMap interface{}, k interface{}) int {
 	return indexes(aMap, k, 0)
 }
 
-// IndexS returns index of array element by string key.
+// IndexS returns first index of array element by string key.
+// It works fastly than Index().
 func IndexS(aMap interface{}, k string) int {
 	key := reflect.ValueOf(k)
 	return index(aMap, key)
 }
 
-// IndexS returns index of array element by int key.
+// IndexI returns index of array element by int key.
+// It works fastly than Index().
 func IndexI(aMap interface{}, k interface{}) int {
 	key := reflect.ValueOf(k)
 	if key.Kind() != reflect.Int {
@@ -43,7 +40,8 @@ func IndexI(aMap interface{}, k interface{}) int {
 	return index(aMap, key)
 }
 
-// Finds all arrayMap index by any type key.
+// Indexes return int slice of all indexes of array element,
+// where is contained the map with searched key.
 func Indexes(aMap interface{}, k interface{}) (positions []int) {
 	if checkTypes := VerifyTypes(aMap, k); checkTypes != "OK" {
 		return []int{}
@@ -58,22 +56,8 @@ func Indexes(aMap interface{}, k interface{}) (positions []int) {
 	return positions
 }
 
-// searching next index from start position.
-func indexes(aMap interface{}, k interface{}, start int) int {
-	key := reflect.ValueOf(k)
-	ptr := reflect.ValueOf(aMap)
-	slice := ptr.Elem()
-	for i := start; i < slice.Len(); i++ {
-		theMap := slice.Index(i)
-		// look by key
-		if val := theMap.MapIndex(key); val.Kind() != reflect.Invalid {
-			return i
-		}
-	}
-	return -1
-}
-
-// Return Value of element by key. Use reflect package for get need type.
+// Value returns founded value of element by key.
+// Need to use reflect package for convert result into any type.
 func Value(aMap interface{}, k interface{}) interface{} {
 	if checkTypes := VerifyTypes(aMap, k); checkTypes != "OK" {
 		//		fmt.Println("Check types:", checkTypes)
@@ -90,6 +74,21 @@ func Value(aMap interface{}, k interface{}) interface{} {
 		}
 	}
 	return nil
+}
+
+// Searching next index from start position.
+func indexes(aMap interface{}, k interface{}, start int) int {
+	key := reflect.ValueOf(k)
+	ptr := reflect.ValueOf(aMap)
+	slice := ptr.Elem()
+	for i := start; i < slice.Len(); i++ {
+		theMap := slice.Index(i)
+		// look by key
+		if val := theMap.MapIndex(key); val.Kind() != reflect.Invalid {
+			return i
+		}
+	}
+	return -1
 }
 
 // Search first index by key.
