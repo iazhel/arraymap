@@ -14,7 +14,7 @@ import (
 )
 
 // Index finds first index of array element,
-// where is contained the map with searched key.
+// the map with searched key is contained.
 // Key may be any type.
 func Index(aMap interface{}, k interface{}) int {
 	if checkTypes := VerifyTypes(aMap, k); checkTypes != "OK" {
@@ -24,14 +24,14 @@ func Index(aMap interface{}, k interface{}) int {
 }
 
 // IndexS returns first index of array element by string key.
-// It works fastly than Index().
+// It works faster than Index().
 func IndexS(aMap interface{}, k string) int {
 	key := reflect.ValueOf(k)
 	return index(aMap, key)
 }
 
 // IndexI returns index of array element by int key.
-// It works fastly than Index().
+// It works faster than Index().
 func IndexI(aMap interface{}, k interface{}) int {
 	key := reflect.ValueOf(k)
 	if key.Kind() != reflect.Int {
@@ -40,8 +40,8 @@ func IndexI(aMap interface{}, k interface{}) int {
 	return index(aMap, key)
 }
 
-// Indexes return int slice of all indexes of array element,
-// where is contained the map with searched key.
+// Indexes returns int slice of all indexes of array element,
+// the map with searched key is contained.
 func Indexes(aMap interface{}, k interface{}) (positions []int) {
 	if checkTypes := VerifyTypes(aMap, k); checkTypes != "OK" {
 		return []int{}
@@ -93,18 +93,17 @@ func indexes(aMap interface{}, k interface{}, start int) int {
 
 // Search first index by key.
 func index(aMap interface{}, key reflect.Value) int {
-	// verify on pointer
+	// verify pointer
 	if ptr := reflect.ValueOf(aMap); ptr.Kind() == reflect.Ptr {
-		//verify on slice
+		//verify slice
 		if slice := ptr.Elem(); slice.Kind() == reflect.Slice {
 			for i := 0; i < slice.Len(); i++ {
-				//verify on map
+				//verify map
 				if theMap := slice.Index(i); theMap.Kind() == reflect.Map {
-					//verify on key presents
+					//verify key presents
 					if val := theMap.MapIndex(key); val.Kind() == reflect.Invalid {
 						continue
 					} else {
-						//return val.Interface()
 						return i
 					}
 				}
@@ -112,16 +111,15 @@ func index(aMap interface{}, key reflect.Value) int {
 		}
 	}
 	return -1
-	//return nil
 }
 
 func VerifyTypes(aMap interface{}, k interface{}) string {
-	// verify on pointer
+	// verify pointer
 	ptr := reflect.ValueOf(aMap)
 	if ptr.Kind() != reflect.Ptr {
 		return "Argument is not pointer."
 	}
-	//verify on slice
+	//verify slice
 	slice := ptr.Elem()
 	if slice.Kind() != reflect.Slice {
 		return "Argument is not slice."
@@ -130,7 +128,7 @@ func VerifyTypes(aMap interface{}, k interface{}) string {
 	if slice.Len() == 0 {
 		return "Slise size is zero."
 	}
-	//verify on map
+	//verify map
 	theMap := slice.Index(0)
 	if theMap.Kind() != reflect.Map {
 		return "Argument is not map."

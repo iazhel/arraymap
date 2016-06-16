@@ -15,7 +15,7 @@ func FindByKey(self *typeArrayMap, key string) (result []interface{}, exs bool) 
 }
 
 // Delete removes first element in arraymap,
-// which contains serched key.
+// which contains searched key.
 func Delete(self *typeArrayMap, key string) {
 	for i, m := range *self {
 		if _, prs := m[key]; prs == true {
@@ -25,7 +25,7 @@ func Delete(self *typeArrayMap, key string) {
 
 }
 
-// Insert appends new element into last map in the array.
+// Insert adds new element into last map in the array.
 func Insert(self *typeArrayMap, key string, val interface{}) {
 	l := len(*self) - 1
 	if l == -1 {
@@ -35,7 +35,7 @@ func Insert(self *typeArrayMap, key string, val interface{}) {
 	(*self)[l][key] = val
 }
 
-// Append appends one empty map to the array.
+// Append adds one empty map to the array.
 func Append(self *typeArrayMap) {
 	*self = append(*self, typeMap{})
 }

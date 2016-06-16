@@ -4,7 +4,7 @@ import "testing"
 import "fmt"
 
 // Test func Index(),  IndexS(), IndexI(), Indexes(), Value()
-// on array with zero size.
+// with array with zero size.
 func Test_Value_Zero_Slice(t *testing.T) {
 	mapStrSome := []map[string]*someStruct{}
 	mapIntSome := []map[int]*someStruct{}
@@ -40,7 +40,7 @@ func Test_Value_Zero_Slice(t *testing.T) {
 		t.Errorf("Get not -1 IndexI from empty slise.")
 	}
 
-	//func Value(aMap interface{}, k interface{}) interface{} tests
+	// func Value(aMap interface{}, k interface{}) interface{} test:
 	if Value(&mapSome, "key") != nil {
 		t.Errorf("Get wrong value.")
 	}
@@ -54,7 +54,7 @@ func Test_Value_Zero_Slice(t *testing.T) {
 		t.Errorf("Get wrong value.")
 	}
 
-	//func Indexes(aMap interface{}, k interface{}) interface{} tests
+	// func Indexes(aMap interface{}, k interface{}) interface{} test:
 	if len(Indexes(&mapSome, "key")) != 0 {
 		t.Errorf("Get not emty slice.")
 	}
@@ -69,8 +69,7 @@ func Test_Value_Zero_Slice(t *testing.T) {
 	}
 }
 
-// Test func Index(),  IndexS(), IndexI(), Indexes(), Value()
-// on array with zero size.
+// func Index(),  IndexS(), IndexI(), Indexes(), Value():
 func Test_Index(t *testing.T) {
 	mapStrStr := []map[string]string{
 		{"key1": "value 1",
@@ -121,7 +120,7 @@ func Test_Index(t *testing.T) {
 		t.Errorf("Get wrong IngexI.")
 	}
 
-	//func Value(aMap interface{}, k interface{}) interface{} tests
+	//func Value(aMap interface{}, k interface{}) interface{} test:
 	if Value(&mapIntStr, nil) != nil {
 		t.Errorf("Get wrong value.")
 	}
@@ -141,7 +140,7 @@ func Test_Index(t *testing.T) {
 		t.Errorf("Get wrong value.")
 	}
 
-	//func Indexes(aMap interface{}, k interface{}) interface{} tests
+	//func Indexes(aMap interface{}, k interface{}) interface{} test:
 	if len(Indexes(&mapStrStr, "key")) != 0 {
 		t.Errorf("Get wrong ingexes number.")
 	}

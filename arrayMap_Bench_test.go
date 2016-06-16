@@ -9,7 +9,7 @@ type someStruct struct {
 	age  int
 }
 
-// Benchmark ususal method
+// Benchmark usual method
 func Benchmark_For_Find_5_maps_1(b *testing.B)     { bench_function(5, 1, "For_Find", b) }
 func Benchmark_For_Find_500_maps_1(b *testing.B)   { bench_function(500, 1, "For_Find", b) }
 func Benchmark_For_Find_50000_maps_1(b *testing.B) { bench_function(50000, 1, "For_Find", b) }
@@ -24,7 +24,7 @@ func Benchmark_IndexS_5_maps_1(b *testing.B)     { bench_function(5, 1, "IndexS"
 func Benchmark_IndexS_500_maps_1(b *testing.B)   { bench_function(500, 1, "IndexS", b) }
 func Benchmark_IndexS_50000_maps_1(b *testing.B) { bench_function(50000, 1, "IndexS", b) }
 
-// Benchmark ususal method
+// Benchmark usual method
 func Benchmark_For_Find_1_maps_50(b *testing.B)    { bench_function(1, 5, "For_Find", b) }
 func Benchmark_For_Find_1_maps_500(b *testing.B)   { bench_function(1, 500, "For_Find", b) }
 func Benchmark_For_Find_1_maps_50000(b *testing.B) { bench_function(1, 50000, "For_Find", b) }
